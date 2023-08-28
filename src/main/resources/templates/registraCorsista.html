@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:insert="fragments/nav :: navbar"></div>
+	<div class="container">
+		<header class="col-md-12" style="margin-bottom: 20px;">
+			<h3>Form inserimento corsista e relativo corso </h3>
+		</header>
+		<form th:action="@{/admin/inserimentoCorsista}" method="post" class="form-horizontal" id="corsistaForm">
+			<!-- Nome -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Nome corsista</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-user"></i>
+						</span>
+						<input id="nome" type="text" name="nome" placeholder="Nome..." class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoNome"></div>
+			</div>
+			<!-- Cognome -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Cognome corsista</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-user"></i>
+						</span>
+						<input id="cognome" type="text" name="cognome" placeholder="Cognome..." class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoCognome"></div>
+			</div>
+			<!-- Nome Corso -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Nome corso</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-book"></i>
+						</span>
+						<input id="nomeCorso" type="text" name="nomeCorso" placeholder="Nome corso..." class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoNomeCorso"></div>
+			</div>			
+			<!-- Data Inizio -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Data inizio corso</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group date" id = "dp">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</span>
+						<input id="dataInizio" type="text" name="dataInizio" placeholder="YYYY/MM/DD" class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoDataInizio"></div>
+			</div>
+			<!-- Data Fine -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Data fine corso</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group date" id = "dp2">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-calendar"></i>
+						</span>
+						<input id="dataFine" type="text" name="dataFine" placeholder="YYYY/MM/DD" class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoDataFine"></div>
+			</div>
+			
+			<script type="text/javascript">
+				$(function(){
+					$('#dp').datepicker({
+						format: 'yyyy/mm/dd',
+						autoclose: true, //chiude in automatico il calendario quando scelgo la data
+						startDate: new Date(), //data di partenza del calendario
+						endDate: '2025/01/01' //data massima quella di oggi
+					}).on(
+						'changeDate', //al cambio data creo una funzione che richiama il validatore - sto creando una func internamente ad una func, sto facendo callback (nome di questo procedimento in js)
+						function(event){
+							$('#corsistaForm').bootstrapValidator(
+								'revalidateField', 'dataInizio'		
+							);
+						});
+				});
+				$(function(){
+					$('#dp2').datepicker({
+						format: 'yyyy/mm/dd',
+						autoclose: true,
+						startDate: new Date, 
+						endDate: '2025/01/01' 
+					}).on(
+						'changeDate', 
+						function(event){
+							$('#corsistaForm').bootstrapValidator(
+								'revalidateField', 'dataFine'		
+							);
+						});
+				});
+			</script>
+			
+			<!-- Commenti -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Commenti</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-edit"></i>
+						</span>
+						<textarea id="commenti" name="commenti" class="form-control" style="resize: none;" rows="4" cols="50"> </textarea>
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoCommenti"></div>
+			</div>
+			<!-- Precedenti Formativi -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Precedenti Formativi</label>
+				<div class="col-md-4 inputGroupContainer">
+				<div class="radio-container" style="display: flex; gap: 10px;">
+					<div class="radio">
+			            <label>
+			                <input id="precedentiFormativi" name="precedentiFormativi" type="radio" th:value="SI" class="radio-inline"> SI
+			            </label>
+			        </div>
+			        <div class="radio">
+			            <label>
+			                <input id="precedentiFormativi" name="precedentiFormativi" type="radio" th:value="NO" class="radio-inline" checked> NO
+			            </label>
+			        </div>
+				</div>
+				</div>
+			</div>
+			<!-- Aula Corso -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Aula corso</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-book"></i>
+						</span>
+						<input id="aulaCorso" type="text" name="aulaCorso" placeholder="Aula corso..." class="form-control">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoAulaCorso"></div>
+			</div>
+			<!-- Codice Docente -->
+			<div class="form-group">
+				<label class="col-md-2 control-label">Codice docente</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-briefcase"></i>
+						</span>
+						<input id="codDocente" type="number" name="codDocente" placeholder="Codice docente..." class="form-control" min="1">
+					</div>
+				</div>
+				<div class="col-md-4 error" id="infoCodDocente"></div>
+			</div>
+			<div class="row">
+				<!-- allineo il pulstante con i campi di inserimento -->
+				<div class="col-md-4 col-md-offset-1">
+					<button type="submit" class="btn btn-warning">
+					Inserisci corsista&nbsp;&nbsp;<span class="glyphicon glyphicon-send"></span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:insert="fragments/nav :: navbar"></div>
+	<div class="container">
+		<div class="jumbotron" style="margin-top: 50px;">
+			<header>
+				<h3>Corsisiti e relativi corsi</h3>
+			</header>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th style="width: 200px;">Nome corsista</th>
+						<th style="width: 200px;">Cognome corsista</th>
+						<th style="width: 200px;">Nome corso</th>
+						<th style="width: 200px;">Data inizio corso</th>
+						<th style="width: 200px;">Data fine corso</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="corsisitaCorso : ${corsistaCorsoList}">
+						<td>
+							<a th:href="@{|/admin/infoCorsista/${corsisitaCorso.corsista.codCorsista}|}" style="color: inherit; text-decoration: none;">
+								<span th:text="${corsisitaCorso.corsista.nome}"></span>
+							</a>
+						</td>
+						<td>
+							<a th:href="@{|/admin/infoCorsista/${corsisitaCorso.corsista.codCorsista}|}" style="color: inherit; text-decoration: none;">
+								<span th:text="${corsisitaCorso.corsista.cognome}"></span>
+							</a>
+						</td>
+						<td th:text="${corsisitaCorso.corso.nomeCorso}"></td>
+						<td th:text="${#dates.format(corsisitaCorso.corso.dataInizioCorso, 'dd-MMM-yyyy')}"></td>
+						<td th:text="${#dates.format(corsisitaCorso.corso.dataFineCorso, 'dd-MMM-yyyy')}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

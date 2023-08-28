@@ -1,0 +1,7 @@
+-- AMMINISTRATORE --
+insert into amministratore values (1, 'Valente', 1, 'Luca', '$2a$10$MnkmnwxwcqDHh4MRRuwJ1uo3ZAxNmz/dzOHhWtBz5A5Q9UeebPXYK', 'ADMIN', 'luca');
+insert into amministratore values (2, 'Rossi', 1, 'Mario', '$2a$10$7RgRuxSG4QKjYvB91g1GLuN0q8wLko/ZyPOANnBtQWGRKiqPtQmzC', 'ADMIN', 'mario');
+
+-- DOCENTE --
+insert into docente values(1, 'Bianchi', 'Roberto');
+insert into docente values(2,'Ferrario', 'Marco');

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- th:replace serve a rimpiazzare l'head con quello presente nel fragments -->
+<head th:replace="fragments/cdn :: cdn">
+<title>Home</title>
+</head>
+<body>
+	<div th:insert="fragments/nav :: navbar"></div>
+	<div class="container">		
+		<header>
+			<h3>Iscrivi un corsista ad un corso</h3>
+		</header>
+		<form th:action="@{/admin/iscriviCorsista}" method="post" class="form-horizontal" style="margin-top: 50px;">
+			<!-- ----- Id Corsista ----- -->
+			<div class="form-group">
+				<label class="col-md-1 control-label">Corsista</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-user"></i>
+						</span>
+						<input id="idCorsista" type="number" name="idCorsista" placeholder="ID Corsista..." class="form-control" min="1">
+					</div>
+				</div>
+			</div>
+						
+			<!-- ----- Id Corso ----- -->
+			<div class="form-group">
+				<label class="col-md-1 control-label">Corso</label>
+				<div class="col-md-4 inputGroupContainer">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="glyphicon glyphicon-book"></i>
+						</span>
+						<input id="idCorso" type="number" name="idCorso" placeholder="ID Corso..." class="form-control" min="1">
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<!-- allineo il pulstante con i campi di inserimento -->
+				<div class="col-md-4 col-md-offset-1">
+					<button type="submit" class="btn btn-warning">
+					Conferma iscrizione&nbsp;&nbsp;<span class="glyphicon glyphicon-send"></span>
+					</button>
+				</div>
+			</div>
+		</form>
+			
+		<!-- TABELLA CORSISTI -->
+		<h3 style="margin-top: 50px;">Corsisti</h3>
+		<table class="table table-hover" style="margin-top: 10px;">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Codice corsista</th>
+					<th style="width: 200px;">Nome</th>
+					<th style="width: 200px;">Cognome</th>
+					<th style="width: 200px;">Precedenti formativi</th>
+				</tr>
+			</thead>
+			<tbody th:each="corsista : ${corsisti}">
+				<tr>
+					<td th:text="${corsista.codCorsista}"></td>
+					<td th:text="${corsista.nome}"></td>
+					<td th:text="${corsista.cognome}"></td>
+					<td th:text="${corsista.precedentiFormativi}"></td>
+				</tr>
+			</tbody>
+		</table>		
+		<!-- TABELLA CORSI --> 
+		<h3 style="margin-top: 50px;">Corsi</h3>
+		<table class="table table-hover" style="margin-top: 10px;">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Codice corso</th>
+					<th style="width: 200px;">Nome corso</th>
+					<th style="width: 200px;">Data inizio corso</th>
+					<th style="width: 200px;">Data fine corso</th>
+					<th style="width: 200px;">Aula corso</th>
+					<th style="width: 200px;">Docente</th>
+				</tr>
+			</thead>
+			<tbody th:each="corso : ${corsi}">
+				<tr>
+					<td th:text="${corso.codCorso}"></td>
+					<td th:text="${corso.nomeCorso}"></td>
+					<td th:text="${#dates.format(corso.dataInizioCorso, 'dd-MMM-yyyy')}"></td>
+					<td th:text="${#dates.format(corso.dataFineCorso, 'dd-MMM-yyyy')}"></td>
+					<td th:text="${corso.aulaCorso}"></td>
+					<td th:text="${corso.docente.nome + ' ' + corso.docente.cognome}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>

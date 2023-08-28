@@ -1,0 +1,71 @@
+<header th:fragment="navbar" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <div sec:authorize="hasRole('ADMIN')">
+      		<a class="navbar-brand" href="/admin/">Home Page</a>
+      </div>
+    </div>
+    
+    <div class="collapse navbar-collapse" id="menu">
+		<ul th:if="${admin_log?.getUsername()} != null" class="nav navbar-nav navbar-right">
+       		<li class="dropdown">
+				<a href="#">
+					<span class="glyphicon glyphicon-user"></span>
+					<span class="badge">
+						<th:block th:text="${admin_log?.getUsername()} ? ${admin_log?.getUsername()} : ''"></th:block>
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="/admin/logout">
+					<span class="glyphicon glyphicon-power-off"></span> Logout
+				</a>
+			</li>
+		</ul>
+		    
+		<div sec:authorize="!hasRole('ADMIN')">
+			<ul th:if="${admin_log?.getUsername()} == null" class="nav navbar-nav navbar-right">
+				<li>
+					<a href="/admin/loginAdmin">
+						<span class="glyphicon glyphicon-log-in"></span> Login
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div sec:authorize="hasRole('ADMIN')">
+			<ul class="nav navbar-nav">
+				<li>
+					<a href="/admin/registraCorsista">
+						<span class="glyphicon glyphicon-plus"></span> Inserisci Corsista/Corso
+					</a>
+				</li>
+				<li>
+					<a href="/admin/iscriviCorsista">
+						<span class="glyphicon glyphicon-plus-sign"></span> Iscrivi Corsista a Corso
+					</a>
+				</li>
+				<li>
+					<a href="/admin/visualizzaStatistiche">
+						<span class="glyphicon glyphicon-stats"></span> Visualizza statistiche
+					</a>
+				</li>
+				<li>
+					<a href="/admin/visualizzaCorsi">
+						<span class="glyphicon glyphicon-list"></span> Visualizza corsi
+					</a>
+				</li>
+			</ul>
+		</div> 
+   	</div>
+  </div>
+</nav>
+</header>
+
+
+

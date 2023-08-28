@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/cdn :: cdn">
+</head>
+<body>
+	<div th:insert="fragments/nav :: navbar"></div>
+	<div class="container">
+		<header>
+			<h3>Statistiche</h3>
+		</header>
+		<!-- CORSISTI TOTALI -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Numero corsisti totali</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${corsistiTotali}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- CORSO PIU FREQUENTATO -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Nome del corso più frequentato</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="corso : ${corsoPiuFrequentato}">
+					<td th:text="${corso.nomeCorso}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- DATA DI INIZIO ULTIMO CORSO -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Data di inizio dell'ultimo corso</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="corso : ${dataUltimoCorso}">
+					<td th:text="${#dates.format(corso.dataInizioCorso, 'dd-MMM-yyyy')} + ' (' + ${corso.nomeCorso} + ')'"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- DURATA MEDIA CORSI -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Durata media corsi in giorni</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${durataMediaCorsi}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- NUMERO COMMENTI -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Numero commenti</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td th:text="${numeroCommenti}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- DOCENTI CHE INSEGNANO PIU DI UN CORSO -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Docenti che insegnano più di un corso</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="docente : ${docentiCheInsegnanoPiuDiUnCorso}">
+					<td th:text="${docente.nome} + ' ' + ${docente.cognome}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- CORSI DISPONIBILI -->
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width: 200px;">Nome corsi disponibili</th>
+					<th style="width: 200px;">Posti rimanenti</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="corso : ${corsiDisponibili}">
+					<td th:text="${corso.nomeCorso}"></td>
+					<td th:text="${corso.postiDisponibili}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<footer th:include="fragments/footer :: footer"></footer>
+</body>
+</html>
