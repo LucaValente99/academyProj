@@ -15,7 +15,7 @@ import com.luca.academyProj.service.CorsistaService;
 @RequestMapping("/api")
 @CrossOrigin(origins="")
 
-//Commento inserito con 'nano'
+//Commento cambiato con 'nano'
 public class CorsistaRestController {
 	@Autowired
 	CorsistaService corsistaService;
